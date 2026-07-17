@@ -1,1 +1,545 @@
 
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="禄写给悦宝宝的一封信">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; img-src 'self' data:; media-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>写给悦宝宝｜禄</title>
+  <style>
+    :root {
+      --paper: #fffaf7;
+      --paper-deep: #f8eee9;
+      --ink: #463738;
+      --muted: #806e70;
+      --rose: #b75567;
+      --rose-dark: #8e3e50;
+      --gold: #b88b55;
+      --line: rgba(142, 62, 80, .16);
+      --shadow: 0 24px 80px rgba(88, 49, 55, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Noto Serif SC", "Songti SC", "STSong", "Microsoft YaHei", serif;
+      background:
+        radial-gradient(circle at 15% 8%, rgba(211, 132, 145, .15), transparent 28rem),
+        radial-gradient(circle at 90% 26%, rgba(210, 173, 124, .12), transparent 24rem),
+        linear-gradient(180deg, #fffdfb 0%, var(--paper) 55%, #f9f0ec 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .2;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+      z-index: 20;
+    }
+
+    a, button { -webkit-tap-highlight-color: transparent; }
+
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 5rem 1.5rem 4rem;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .halo {
+      position: absolute;
+      width: min(70vw, 42rem);
+      aspect-ratio: 1;
+      border: 1px solid rgba(183, 85, 103, .14);
+      border-radius: 50%;
+      z-index: -1;
+      animation: breathe 7s ease-in-out infinite;
+    }
+
+    .halo::before,
+    .halo::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(183, 85, 103, .1);
+      border-radius: 50%;
+    }
+
+    .halo::before { inset: 8%; }
+    .halo::after { inset: 19%; }
+
+    .hero-inner {
+      width: min(48rem, 100%);
+      text-align: center;
+      animation: rise 1.2s ease both;
+    }
+
+    .eyebrow {
+      margin: 0 0 1.4rem;
+      color: var(--gold);
+      font-family: "Microsoft YaHei", sans-serif;
+      font-size: .72rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--rose-dark);
+      font-size: clamp(3rem, 10vw, 6.8rem);
+      font-weight: 500;
+      letter-spacing: .08em;
+      line-height: 1.08;
+    }
+
+    .hero-copy {
+      max-width: 34rem;
+      margin: 2rem auto 0;
+      font-size: clamp(1rem, 2.3vw, 1.22rem);
+      line-height: 2.15;
+      letter-spacing: .08em;
+    }
+
+    .open-button {
+      margin-top: 2.7rem;
+      padding: .88rem 1.7rem;
+      border: 1px solid var(--rose);
+      border-radius: 999px;
+      color: #fff;
+      background: var(--rose);
+      box-shadow: 0 10px 28px rgba(142, 62, 80, .2);
+      cursor: pointer;
+      font: inherit;
+      letter-spacing: .14em;
+      transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+    }
+
+    .open-button:hover {
+      transform: translateY(-2px);
+      background: var(--rose-dark);
+      box-shadow: 0 14px 34px rgba(142, 62, 80, .26);
+    }
+
+    .scroll-mark {
+      position: absolute;
+      bottom: 1.7rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font-family: sans-serif;
+      font-size: .68rem;
+      letter-spacing: .24em;
+      writing-mode: vertical-rl;
+    }
+
+    main { padding: 0 1.25rem 7rem; }
+
+    .section {
+      width: min(66rem, 100%);
+      margin: 0 auto;
+      padding: 7rem 0;
+    }
+
+    .section-title {
+      margin: 0 0 3rem;
+      text-align: center;
+      color: var(--rose-dark);
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      font-weight: 500;
+      letter-spacing: .12em;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 2.5rem;
+      height: 1px;
+      margin: 1.1rem auto 0;
+      background: var(--gold);
+    }
+
+    .letter {
+      position: relative;
+      width: min(47rem, 100%);
+      margin: auto;
+      padding: clamp(2rem, 7vw, 5rem);
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 251, .84);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .letter::before,
+    .letter::after {
+      content: "";
+      position: absolute;
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+
+    .letter::before {
+      top: .9rem;
+      left: .9rem;
+      border-top: 1px solid var(--gold);
+      border-left: 1px solid var(--gold);
+    }
+
+    .letter::after {
+      right: .9rem;
+      bottom: .9rem;
+      border-right: 1px solid var(--gold);
+      border-bottom: 1px solid var(--gold);
+    }
+
+    .letter p {
+      margin: 0 0 1.55rem;
+      font-size: clamp(1rem, 2.2vw, 1.14rem);
+      line-height: 2.15;
+      letter-spacing: .055em;
+    }
+
+    .letter p:last-of-type { margin-bottom: 0; }
+
+    .salutation {
+      color: var(--rose-dark);
+      font-size: 1.3rem !important;
+    }
+
+    .signature {
+      margin-top: 2.7rem;
+      text-align: right;
+      color: var(--rose-dark);
+      line-height: 1.9;
+    }
+
+    .signature strong {
+      font-size: 1.45rem;
+      font-weight: 500;
+      letter-spacing: .25em;
+    }
+
+    .meaning-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+
+    .meaning-card {
+      min-height: 19rem;
+      padding: 2.6rem 2rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 247, .68);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform .3s ease, background .3s ease;
+    }
+
+    .meaning-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 253, 251, .95);
+    }
+
+    .number {
+      color: var(--gold);
+      font-family: Georgia, serif;
+      font-size: .86rem;
+      letter-spacing: .15em;
+    }
+
+    .meaning-card h3 {
+      margin: 2.5rem 0 1rem;
+      color: var(--rose-dark);
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+    }
+
+    .meaning-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.95;
+      letter-spacing: .04em;
+    }
+
+    .promise {
+      text-align: center;
+      padding-bottom: 2rem;
+    }
+
+    .promise blockquote {
+      max-width: 45rem;
+      margin: 0 auto;
+      color: var(--rose-dark);
+      font-size: clamp(1.45rem, 4vw, 2.7rem);
+      font-weight: 400;
+      line-height: 1.8;
+      letter-spacing: .08em;
+    }
+
+    .promise small {
+      display: block;
+      margin-top: 2rem;
+      color: var(--muted);
+      font-family: sans-serif;
+      letter-spacing: .18em;
+    }
+
+    footer {
+      padding: 4rem 1.5rem;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 2;
+      letter-spacing: .12em;
+    }
+
+    .music-button {
+      position: fixed;
+      right: 1.1rem;
+      bottom: 1.1rem;
+      z-index: 10;
+      width: 3rem;
+      height: 3rem;
+      border: 1px solid rgba(183, 85, 103, .25);
+      border-radius: 50%;
+      color: var(--rose-dark);
+      background: rgba(255, 250, 247, .88);
+      box-shadow: 0 8px 28px rgba(88, 49, 55, .14);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform .25s ease;
+    }
+
+    .music-button:hover { transform: scale(1.06); }
+    .music-button.playing { animation: spin 5s linear infinite; }
+
+    .music-tip {
+      position: fixed;
+      right: 4.8rem;
+      bottom: 1.65rem;
+      z-index: 10;
+      max-width: calc(100vw - 7rem);
+      padding: .55rem .8rem;
+      border-radius: .45rem;
+      color: #fff;
+      background: rgba(70, 55, 56, .88);
+      font-family: sans-serif;
+      font-size: .72rem;
+      opacity: 0;
+      transform: translateY(.4rem);
+      pointer-events: none;
+      transition: .25s ease;
+    }
+
+    .music-tip.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(1.5rem); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(.96); opacity: .7; }
+      50% { transform: scale(1.04); opacity: 1; }
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 760px) {
+      .meaning-grid { grid-template-columns: 1fr; }
+      .meaning-card { min-height: auto; }
+      .section { padding: 5rem 0; }
+      .letter { padding: 3rem 1.6rem; }
+      .hero-copy br { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="halo" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <p class="eyebrow">A letter kept in time</p>
+      <h1>悦宝宝</h1>
+      <p class="hero-copy">
+        有些喜欢适合说给世界听，<br>
+        有些爱，我只想认真说给你。
+      </p>
+      <button class="open-button" id="openLetter" type="button">开启这封信</button>
+    </div>
+    <span class="scroll-mark" aria-hidden="true">SCROLL</span>
+  </header>
+
+  <main>
+    <section class="section" id="letter">
+      <h2 class="section-title reveal">写给悦宝宝</h2>
+      <article class="letter reveal">
+        <p class="salutation">悦宝宝：</p>
+
+        <p>我曾以为，深情一定要写得很长。后来才明白，真正想对你说的话，其实很简单：我想在你开心的时候陪你笑，也想在你疲惫的时候，成为那个让你可以放心靠近的人。</p>
+
+        <p>我喜欢的，不只是你明亮、可爱的时候，也包括你偶尔的沉默、敏感、疲惫和不想解释的时刻。你不需要永远快乐，也不必一直坚强。在禄这里，你可以安心地做自己。</p>
+
+        <p>我不想拿“永远”作一句轻率的保证。我更愿意把它拆成许多个普通的今天：今天认真听你说话，今天在乎你的感受，今天没有因为熟悉而敷衍，今天仍然愿意坚定地走向你。</p>
+
+        <p>遇见你之后，世界并没有突然变得完美。但那些原本普通的风景，因为想与你分享，便有了特别的意义。爱大概就是这样——不是把彼此变成另一个人，而是让我们都更愿意成为真实、温柔而勇敢的自己。</p>
+
+        <p>如果未来某一天，我们回头看现在，我希望这份爱不只是一段写在网页上的漂亮文字，而是我们确实认真相待、彼此珍惜，一步一步共同走过的日子。</p>
+
+        <p>谢谢你来到我的生命里。愿我不仅能分享你盛大的快乐，也能看见你那些细小而没有说出口的情绪。</p>
+
+        <div class="signature">
+          写给我最珍惜的悦宝宝<br>
+          <strong>禄</strong>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title reveal">我理解的爱</h2>
+      <div class="meaning-grid">
+        <article class="meaning-card reveal">
+          <span class="number">01</span>
+          <div>
+            <h3>是看见</h3>
+            <p>不只看见你的笑，也看见笑容背后的辛苦；不急着给答案，而是先认真听完你的心事。</p>
+          </div>
+        </article>
+
+        <article class="meaning-card reveal">
+          <span class="number">02</span>
+          <div>
+            <h3>是尊重</h3>
+            <p>爱不是占有彼此，而是在靠近的同时，仍然尊重你的选择、边界与自由。</p>
+          </div>
+        </article>
+
+        <article class="meaning-card reveal">
+          <span class="number">03</span>
+          <div>
+            <h3>是选择</h3>
+            <p>心动也许发生在一瞬间，珍惜却是在漫长的日子里，一次又一次选择认真对待你。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section promise reveal">
+      <blockquote>
+        “不急着把未来说得多么盛大，<br>
+        只想把和你的每一个当下，<br>
+        都过得认真。”
+      </blockquote>
+      <small>禄 · 写于只属于我们的春天</small>
+    </section>
+  </main>
+
+  <footer>
+    这个页面没有结束日期。<br>
+    因为只要故事仍在继续，它就值得被温柔地写下去。
+  </footer>
+
+  <audio id="bgMusic" src="music.mp3" preload="metadata" loop></audio>
+  <button class="music-button" id="musicButton" type="button" aria-label="播放背景音乐" title="播放背景音乐">♫</button>
+  <span class="music-tip" id="musicTip" role="status">音乐已开启</span>
+
+  <script>
+    const music = document.getElementById('bgMusic');
+    const musicButton = document.getElementById('musicButton');
+    const musicTip = document.getElementById('musicTip');
+    const openLetter = document.getElementById('openLetter');
+    let tipTimer;
+
+    function showTip(message) {
+      musicTip.textContent = message;
+      musicTip.classList.add('show');
+      clearTimeout(tipTimer);
+      tipTimer = setTimeout(() => musicTip.classList.remove('show'), 2400);
+    }
+
+    async function playMusic() {
+      try {
+        music.volume = 0.42;
+        await music.play();
+        musicButton.classList.add('playing');
+        musicButton.setAttribute('aria-label', '暂停背景音乐');
+        musicButton.title = '暂停背景音乐';
+        showTip('音乐已开启');
+        return true;
+      } catch (error) {
+        showTip('请将音乐命名为 music.mp3 并上传');
+        return false;
+      }
+    }
+
+    musicButton.addEventListener('click', async () => {
+      if (music.paused) {
+        await playMusic();
+      } else {
+        music.pause();
+        musicButton.classList.remove('playing');
+        musicButton.setAttribute('aria-label', '播放背景音乐');
+        musicButton.title = '播放背景音乐';
+        showTip('音乐已暂停');
+      }
+    });
+
+    openLetter.addEventListener('click', async () => {
+      await playMusic();
+      document.getElementById('letter').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll('.reveal').forEach((element, index) => {
+      element.style.transitionDelay = `${Math.min(index % 3, 2) * 100}ms`;
+      observer.observe(element);
+    });
+  </script>
+</body>
+</html>
