@@ -450,6 +450,91 @@ main {
   padding: 0 1.25rem;
 }
 
+.together-section {
+  width: min(68rem, 100%);
+  margin: 0 auto;
+  padding: 7rem 0 8rem;
+  text-align: center;
+}
+
+.together-eyebrow {
+  margin: 0 0 1rem;
+  color: var(--gold);
+  font-family: var(--sans);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .32em;
+}
+
+.together-section h2 {
+  margin: 0;
+  color: var(--rose-dark);
+  font-size: 2.35rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+}
+
+.together-clock {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1.35fr) repeat(3, minmax(7rem, 1fr));
+  width: min(52rem, 100%);
+  margin: 3rem auto 0;
+  padding: 3rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.time-part {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  place-items: center;
+  gap: .65rem;
+}
+
+.time-part + .time-part::before {
+  content: "";
+  position: absolute;
+  top: 12%;
+  bottom: 12%;
+  left: 0;
+  width: 1px;
+  background: var(--line);
+}
+
+.time-value {
+  min-width: 2.2ch;
+  color: var(--rose-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 3.5rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.time-days .time-value {
+  min-width: 3ch;
+}
+
+.time-value.is-changing {
+  animation: timeTick .4s ease-out;
+}
+
+.time-unit {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: .75rem;
+  letter-spacing: .12em;
+}
+
+.together-day {
+  margin: 2rem 0 0;
+  color: var(--muted);
+  font-size: .92rem;
+  letter-spacing: .12em;
+}
+
 .letter-section,
 .meaning-section {
   width: min(68rem, 100%);
@@ -739,6 +824,11 @@ footer p {
   100% { transform: translateX(-50%) translateY(-54%) scale(1.08); }
 }
 
+@keyframes timeTick {
+  0% { opacity: .42; transform: translateY(.15rem); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 760px) {
   .opening-scene {
     padding-top: 1.8rem;
@@ -780,6 +870,48 @@ footer p {
 
   .hero-copy {
     max-width: 19rem;
+  }
+
+  .together-section {
+    padding: 5.5rem 0 6rem;
+  }
+
+  .together-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .together-clock {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 2.4rem;
+    padding: 0;
+  }
+
+  .time-part {
+    min-height: 8.5rem;
+    padding: 1.5rem .5rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .time-part + .time-part::before {
+    display: none;
+  }
+
+  .time-part:nth-child(odd)::after {
+    content: "";
+    position: absolute;
+    top: 15%;
+    right: 0;
+    bottom: 15%;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .time-value {
+    font-size: 2.7rem;
+  }
+
+  .together-day {
+    margin-top: 1.6rem;
   }
 
   .letter-section,

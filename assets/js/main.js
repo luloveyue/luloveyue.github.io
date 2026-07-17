@@ -11,6 +11,8 @@ const letterContent = document.getElementById('letterContent');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 let isOpening = false;
+let togetherTimerId;
+let togetherStartTime;
 
 function escapeHtml(value) {
   return String(value)
@@ -84,6 +86,7 @@ function parseBlocks(lines) {
 }
 
 function parseDocument(markdown) {
+  const togetherSinceMatch = markdown.match(/<!--\s*together-since:\s*([^\s]+)\s*-->/i);
   const source = markdown
     .replace(/^\uFEFF/, '')
     .replace(/<!--[\s\S]*?-->/g, '')
@@ -118,6 +121,7 @@ function parseDocument(markdown) {
 
   return {
     recipient,
+    togetherSince: togetherSinceMatch?.[1] || '',
     intro: parseBlocks(introLines),
     sections,
   };
@@ -247,6 +251,79 @@ function renderPromiseSection(section) {
     </section>`;
 }
 
+function renderTogetherSection() {
+  return `
+    <section class="together-section" aria-labelledby="together-title">
+      <p class="together-eyebrow">OUR TIME</p>
+      <h2 id="together-title">我们已经在一起</h2>
+      <time class="together-clock" id="togetherDuration">
+        <span class="time-part time-days">
+          <strong class="time-value" id="togetherDays">0</strong>
+          <span class="time-unit">天</span>
+        </span>
+        <span class="time-part">
+          <strong class="time-value" id="togetherHours">00</strong>
+          <span class="time-unit">小时</span>
+        </span>
+        <span class="time-part">
+          <strong class="time-value" id="togetherMinutes">00</strong>
+          <span class="time-unit">分钟</span>
+        </span>
+        <span class="time-part">
+          <strong class="time-value" id="togetherSeconds">00</strong>
+          <span class="time-unit">秒</span>
+        </span>
+      </time>
+      <p class="together-day" id="togetherDayNumber"></p>
+    </section>`;
+}
+
+function updateTogetherTimer() {
+  if (!togetherStartTime) return;
+
+  const elapsedSeconds = Math.max(0, Math.floor((Date.now() - togetherStartTime) / 1000));
+  const days = Math.floor(elapsedSeconds / 86400);
+  const hours = Math.floor((elapsedSeconds % 86400) / 3600);
+  const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+  const seconds = elapsedSeconds % 60;
+  const daysElement = document.getElementById('togetherDays');
+  const hoursElement = document.getElementById('togetherHours');
+  const minutesElement = document.getElementById('togetherMinutes');
+  const secondsElement = document.getElementById('togetherSeconds');
+  const dayNumberElement = document.getElementById('togetherDayNumber');
+  const durationElement = document.getElementById('togetherDuration');
+
+  if (!daysElement || !hoursElement || !minutesElement || !secondsElement || !dayNumberElement) return;
+
+  daysElement.textContent = String(days);
+  hoursElement.textContent = String(hours).padStart(2, '0');
+  minutesElement.textContent = String(minutes).padStart(2, '0');
+  secondsElement.textContent = String(seconds).padStart(2, '0');
+  dayNumberElement.textContent = `这是我们在一起的第 ${days + 1} 天`;
+
+  if (durationElement) {
+    durationElement.setAttribute('datetime', `P${days}DT${hours}H${minutes}M${seconds}S`);
+  }
+
+  if (!reducedMotion) {
+    secondsElement.classList.remove('is-changing');
+    window.requestAnimationFrame(() => secondsElement.classList.add('is-changing'));
+  }
+}
+
+function startTogetherTimer(value) {
+  window.clearInterval(togetherTimerId);
+  togetherStartTime = Date.parse(value);
+
+  if (!Number.isFinite(togetherStartTime)) {
+    togetherStartTime = undefined;
+    return;
+  }
+
+  updateTogetherTimer();
+  togetherTimerId = window.setInterval(updateTogetherTimer, 1000);
+}
+
 function getAuthor(documentData) {
   const firstSection = documentData.sections[0];
   if (!firstSection) return '';
@@ -260,7 +337,12 @@ function renderDocument(documentData) {
     throw new Error('content.md 至少需要一个 # 收信人和一个 ## 章节');
   }
 
-  const { recipient, intro, sections } = documentData;
+  const {
+    recipient,
+    togetherSince,
+    intro,
+    sections,
+  } = documentData;
   const author = getAuthor(documentData);
   const introTexts = intro.map(blockText).filter(Boolean);
 
@@ -279,7 +361,7 @@ function renderDocument(documentData) {
   if (description) description.content = `写给${recipient}的一封信，一份被认真收藏的温柔。`;
 
   let number = 1;
-  const html = sections.map((section, index) => {
+  const sectionsHtml = sections.map((section, index) => {
     const { items } = splitSubsections(section.lines);
 
     if (section.title.includes('约定') && parseBlocks(section.lines).some((block) => block.type === 'quote')) {
@@ -293,7 +375,12 @@ function renderDocument(documentData) {
     return rendered;
   }).join('');
 
-  letterContent.innerHTML = html;
+  const hasValidTogetherTime = togetherSince && Number.isFinite(Date.parse(togetherSince));
+  letterContent.innerHTML = `${hasValidTogetherTime ? renderTogetherSection() : ''}${sectionsHtml}`;
+
+  if (hasValidTogetherTime) {
+    startTogetherTimer(togetherSince);
+  }
 }
 
 async function loadContent() {
@@ -329,6 +416,10 @@ openLetter.addEventListener('click', () => {
   openLetter.disabled = true;
   body.classList.add('is-opening');
   window.setTimeout(finishOpening, reducedMotion ? 80 : 2050);
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) updateTogetherTimer();
 });
 
 void loadContent();
