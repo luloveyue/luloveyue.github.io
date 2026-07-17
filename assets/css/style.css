@@ -538,6 +538,29 @@ main {
   letter-spacing: .055em;
 }
 
+.letter-paper ul {
+  position: relative;
+  margin: 0 0 1.65rem;
+  padding-left: 1.4rem;
+  font-size: clamp(1rem, 2vw, 1.13rem);
+  line-height: 2.15;
+  letter-spacing: .055em;
+}
+
+.letter-paper li + li {
+  margin-top: .45rem;
+}
+
+.paper-quote {
+  position: relative;
+  margin: 2rem 0;
+  padding: .4rem 0 .4rem 1.4rem;
+  border-left: 2px solid var(--rose-soft);
+  color: var(--rose-dark);
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  line-height: 2;
+}
+
 .letter-paper .salutation {
   margin-bottom: 2rem;
   color: var(--rose-dark);
@@ -569,6 +592,17 @@ main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
+}
+
+.section-intro {
+  width: min(42rem, 100%);
+  margin: -1.4rem auto 3rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.section-intro p {
+  line-height: 1.9;
 }
 
 .meaning-card {

@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="禄写给悦宝宝的一封信，一份被认真收藏的温柔。">
+  <meta name="description" content="写给悦宝宝的一封信，一份被认真收藏的温柔。">
   <meta name="theme-color" content="#f7e9e5">
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
   <title>写给悦宝宝｜禄</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="assets/js/main.js" defer></script>
@@ -22,7 +22,7 @@
     <div class="opening-copy">
       <p class="eyebrow">A LETTER KEPT IN TIME</p>
       <h1 id="openingTitle">给悦宝宝的一封信</h1>
-      <p>有些心意，想让你亲手打开。</p>
+      <p id="openingSubtitle">有些心意，想让你亲手打开。</p>
     </div>
 
     <button class="envelope-trigger" id="openLetter" type="button" aria-label="打开写给悦宝宝的信" aria-controls="letterPage">
@@ -30,7 +30,7 @@
         <span class="envelope-back"></span>
         <span class="envelope-letter">
           <span class="mini-mark">致</span>
-          <strong>悦宝宝</strong>
+          <strong id="envelopeRecipient">悦宝宝</strong>
           <small>请亲启</small>
         </span>
         <span class="envelope-flap"></span>
@@ -48,11 +48,11 @@
       <p class="eyebrow">FOR THE ONE I CHERISH</p>
       <p class="hero-kicker">一封被认真收藏的信</p>
       <h2 id="letterHeading" tabindex="-1">悦宝宝</h2>
-      <p class="hero-copy">愿你读到这里时，能感受到每一个字里藏着的认真。</p>
+      <p class="hero-copy" id="heroCopy">愿你读到这里时，能感受到每一个字里藏着的认真。</p>
       <span class="down-mark" aria-hidden="true">继续读下去</span>
     </header>
 
-    <main>
+    <main id="letterContent">
       <section class="letter-section" aria-labelledby="letterTitle">
         <p class="section-number">01</p>
         <h2 class="section-title" id="letterTitle">写给悦宝宝</h2>
