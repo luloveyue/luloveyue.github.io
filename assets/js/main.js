@@ -253,9 +253,10 @@ function renderPromiseSection(section) {
 
 function renderTogetherSection() {
   return `
-    <section class="together-section" aria-labelledby="together-title">
+    <section class="together-section" aria-labelledby="togetherDayNumber">
       <p class="together-eyebrow">OUR TIME</p>
-      <h2 id="together-title">我们已经在一起</h2>
+      <h2 class="together-day" id="togetherDayNumber"></h2>
+      <p class="together-caption">从我们在一起的那一刻起，我们已经共同走过</p>
       <time class="together-clock" id="togetherDuration">
         <span class="time-part time-days">
           <strong class="time-value" id="togetherDays">0</strong>
@@ -274,14 +275,23 @@ function renderTogetherSection() {
           <span class="time-unit">秒</span>
         </span>
       </time>
-      <p class="together-day" id="togetherDayNumber"></p>
     </section>`;
+}
+
+function getTogetherDayNumber(now, startTime) {
+  const chinaOffset = 8 * 60 * 60 * 1000;
+  const nowInChina = new Date(now + chinaOffset);
+  const startInChina = new Date(startTime + chinaOffset);
+  const nowDate = Date.UTC(nowInChina.getUTCFullYear(), nowInChina.getUTCMonth(), nowInChina.getUTCDate());
+  const startDate = Date.UTC(startInChina.getUTCFullYear(), startInChina.getUTCMonth(), startInChina.getUTCDate());
+  return Math.max(1, Math.floor((nowDate - startDate) / 86400000) + 1);
 }
 
 function updateTogetherTimer() {
   if (!togetherStartTime) return;
 
-  const elapsedSeconds = Math.max(0, Math.floor((Date.now() - togetherStartTime) / 1000));
+  const now = Date.now();
+  const elapsedSeconds = Math.max(0, Math.floor((now - togetherStartTime) / 1000));
   const days = Math.floor(elapsedSeconds / 86400);
   const hours = Math.floor((elapsedSeconds % 86400) / 3600);
   const minutes = Math.floor((elapsedSeconds % 3600) / 60);
@@ -299,7 +309,7 @@ function updateTogetherTimer() {
   hoursElement.textContent = String(hours).padStart(2, '0');
   minutesElement.textContent = String(minutes).padStart(2, '0');
   secondsElement.textContent = String(seconds).padStart(2, '0');
-  dayNumberElement.textContent = `这是我们在一起的第 ${days + 1} 天`;
+  dayNumberElement.textContent = `这是我们在一起的第 ${getTogetherDayNumber(now, togetherStartTime)} 天`;
 
   if (durationElement) {
     durationElement.setAttribute('datetime', `P${days}DT${hours}H${minutes}M${seconds}S`);
